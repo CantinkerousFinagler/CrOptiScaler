@@ -19,7 +19,8 @@ Experimental, tested on one machine. Not affiliated with R.E.A.L. VR, NVIDIA or 
 2. Start the game and press **Insert** for the menu.
 
 Optional:
-- **Neural Rendering** also needs NVIDIA's `nvngx_dlssnr.dll`, which is not in the zip. Put it next to the game's
+- **Neural Rendering** also needs NVIDIA's `nvngx_dlssnr.dll`, which is not in the zip. (The similarly named
+  `nvngx.dll_dlssnr.dll` that IS in the zip is a different file, ours: keep it, the crop needs it.) Put NVIDIA's next to the game's
   executable. Which version you need is in [INSTALL-DLSSNR.md](INSTALL-DLSSNR.md) under "The runtime"; its
   install steps are for the general fork, follow the ones here.
 
