@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{6C1E4A3B-7A2D-4F0E-9B61-2F3A5D8E91C9}</ProjectGuid>
+    <RootNamespace>overlay_test</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <PropertyGroup>
+    <OutDir>$(MSBuildThisFileDirectory)bin\overlay\</OutDir>
+    <IntDir>$(MSBuildThisFileDirectory)obj\overlay\</IntDir>
+    <TargetName>overlay_test</TargetName>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <PreprocessorDefinitions>NOMINMAX;WIN32_LEAN_AND_MEAN;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(MSBuildThisFileDirectory)..\..\..\OptiScaler\include\imgui;$(MSBuildThisFileDirectory)..\..\..\OptiScaler\include;$(MSBuildThisFileDirectory)..\..\..\external\freetype;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <AdditionalLibraryDirectories>$(MSBuildThisFileDirectory)..\..\..\external\freetype;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>d3d11.lib;d3d12.lib;dxgi.lib;d3dcompiler.lib;freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="overlay_test.cpp" />
+    <ClCompile Include="..\..\..\OptiScaler\include\imgui\imgui.cpp" />
+    <ClCompile Include="..\..\..\OptiScaler\include\imgui\imgui_draw.cpp" />
+    <ClCompile Include="..\..\..\OptiScaler\include\imgui\imgui_tables.cpp" />
+    <ClCompile Include="..\..\..\OptiScaler\include\imgui\imgui_widgets.cpp" />
+    <ClCompile Include="..\..\..\OptiScaler\include\imgui\imgui_impl_dx11.cpp" />
+    <ClCompile Include="..\..\..\OptiScaler\include\imgui\imgui_impl_dx12.cpp" />
+    <ClCompile Include="..\..\..\OptiScaler\include\imgui\misc\freetype\imgui_freetype.cpp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+</Project>
