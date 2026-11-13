@@ -80,6 +80,9 @@ bodies. This fixes most of it. It is meant for playing with Ray Reconstruction o
 such as Ultra or Cinematic, to save performance. With Ray Reconstruction on you do not need it.
 
 - **Turn it on:** tick **Per-eye lighting** under **Crimson Desert**. It is off at every launch.
+- **It beeps.** Seven short beeps when it turns on, one when it turns off. That is the fix confirming the switch,
+  not an error. Three long, low beeps shortly after turning it on mean it could not find the game's lighting and
+  is not running, which can happen after a game patch.
 
 ### Gamepad
 
@@ -112,6 +115,7 @@ one's cost. And if your headset already holds its refresh rate, the saving shows
 **Crimson Desert**
 - Per-eye lighting is for playing without Ray Reconstruction, on lighting quality Ultra or Cinematic.
 - Per-eye lighting is off at every launch. Turn it on in the menu.
+- The beeps when you switch Per-eye lighting are normal: seven for on, one for off.
 - **Turn it off before changing graphics settings**, then on again. Changing settings with it on can crash.
 - Some spots on quick head turns and some haloing on characters can remain.
 - A game patch can switch part of the fix off. The menu says what is running.
