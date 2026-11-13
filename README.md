@@ -75,7 +75,9 @@ and, by default, only in the middle of the eye like the crop.
 
 ### Crimson Desert: Per-eye lighting
 
-In VR the game's lighting shows bands beside characters and black spots on shadowed bodies. This fixes most of it.
+Without Ray Reconstruction, the game's lighting in VR shows bands beside characters and black spots on shadowed
+bodies. This fixes most of it. It is meant for playing with Ray Reconstruction off and a lower lighting quality
+such as Ultra or Cinematic, to save performance. With Ray Reconstruction on you do not need it.
 
 - **Turn it on:** tick **Per-eye lighting** under **Crimson Desert**. It is off at every launch.
 
@@ -108,6 +110,7 @@ one's cost. And if your headset already holds its refresh rate, the saving shows
 ## Per game
 
 **Crimson Desert**
+- Per-eye lighting is for playing without Ray Reconstruction, on lighting quality Ultra or Cinematic.
 - Per-eye lighting is off at every launch. Turn it on in the menu.
 - **Turn it off before changing graphics settings**, then on again. Changing settings with it on can crash.
 - Some spots on quick head turns and some haloing on characters can remain.
