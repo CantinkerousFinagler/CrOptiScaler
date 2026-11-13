@@ -23,6 +23,7 @@ Optional:
   `nvngx.dll_dlssnr.dll` that IS in the zip is a different file, ours: keep it, the crop needs it.) Put NVIDIA's next to the game's
   executable. Which version you need is in [INSTALL-DLSSNR.md](INSTALL-DLSSNR.md) under "The runtime"; its
   install steps are for the general fork, follow the ones here.
+  You can grab the file from Hogwarts Legacy if you have it now :) 
 
 - **OXR Headset Menu.** OpenXR only. If our menu does not show in the headset in your game, copy the `xr_observer` folder
   from the zip's `OXR Headset Menu` folder into `<game>\OptiScaler\`. Its switch is
