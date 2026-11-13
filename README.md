@@ -1,7 +1,7 @@
 # CrOptiScaler
 
 An [OptiScaler](https://github.com/optiscaler/OptiScaler) fork for games played in VR with
-[R.E.A.L. VR](https://www.patreon.com/realvr). It adds **foveated DLSS**: full quality in the middle of each eye,
+[R.E.A.L. VR](https://www.patreon.com/realvr). It adds **foveated DLSS:SR,RR,NR**: full quality in the middle of each eye,
 a cheap pass for the rest, for a higher frame rate.
 
 Experimental, tested on one machine. Not affiliated with R.E.A.L. VR, NVIDIA or the OptiScaler team.
@@ -24,7 +24,7 @@ Optional:
   executable. Which version you need is in [INSTALL-DLSSNR.md](INSTALL-DLSSNR.md) under "The runtime"; its
   install steps are for the general fork, follow the ones here.
 
-- **OXR Headset Menu.** If our menu does not show in the headset in your game, copy the `xr_observer` folder
+- **OXR Headset Menu.** OpenXR only. If our menu does not show in the headset in your game, copy the `xr_observer` folder
   from the zip's `OXR Headset Menu` folder into `<game>\OptiScaler\`. Its switch is
   **Show this menu in the headset**. Skip it where the menu already shows, or you get two. Not for Vulkan games.
 
@@ -47,12 +47,12 @@ heavier like K or M (these are the defaults).
 - **Left / right, Up / down:** move the box if the sharp part does not sit where you look.
 - **Crop preset:** the DLSS preset used inside the box.
 - **Cheap periphery** (on by default): the cheap pass outside the box. Leave it on; it is where the gain comes
-  from. **Periphery preset** is the DLSS preset it uses.
+  from. **Periphery preset** is the DLSS preset it uses. E or a similar older preset is recommended for more performance.
 
 ### Ray Reconstruction games
 
 If the game uses Ray Reconstruction (DLSS's denoiser for ray tracing), the crop runs Ray Reconstruction inside
-the box and plain DLSS outside it, as long as the Foveated DLSS crop is turned on. That is a significant saving,
+the box and plain DLSS outside it, as long as the Foveated DLSS crop is turned on. That is a significant savings,
 and the price is that ray-traced noise is not cleaned outside the box.
 
 - **SR periphery in RR mode** (on by default): untick it to get Ray Reconstruction on the whole picture again, at
@@ -83,7 +83,7 @@ In VR the game's lighting shows bands beside characters and black spots on shado
 By default this mod leaves the gamepad alone, so the game and R.E.A.L. VR's own overlay keep working as usual.
 Use the mouse in our menu.
 
-- **Gamepad in this menu (after a restart)**, top of the left column: lets the gamepad move through our menu. In
+- **Gamepad in this menu (after a restart)**, top of the left column: lets the gamepad move through the Opti UI. In
   some games R.E.A.L. VR's overlay then stops opening from the gamepad.
 
 ### Keys
@@ -95,7 +95,7 @@ Use the mouse in our menu.
 | Page Down | switches the FPS overlay's view |
 | End | OptiScaler's frame generation (does not work in VR) |
 
-Under **Keybinds** you can change these, and give a key to **Foveal Crop** and **Per-eye Lighting**. Other mods
+**Keybinds** you can change these, and give a key to **Foveal Crop** and **Per-eye Lighting**. Other mods
 can use the same keys: if one reacts to Insert, change the key in that mod or here.
 
 ### Is the crop saving anything?
@@ -128,10 +128,10 @@ one's cost. And if your headset already holds its refresh rate, the saving shows
 
 ## Limitations
 
-- With the crop on, Ray Reconstruction runs only inside the crop, so ray-traced noise can show outside it.
+- With the crop on, Ray Reconstruction runs only inside the crop, so ray-traced noise will show outside it.
 - The first time you turn the crop on with Ray Reconstruction, one "upscaler failed" message can appear. Ignore it.
 - With the gamepad setting on, R.E.A.L. VR's overlay may not open from the gamepad.
-- With R.E.A.L. VR's DL(S)SS off the crop still runs, but that is barely tested.
+- With R.E.A.L. VR's DL(S)SS off the crop still runs, but that is barely tested. It is intended to run with DL(S)SS for now.
 - AMD and Intel cards: untested.
 - The `OptiScaler` folder leaves out `libxell.dll` (Intel's low-latency library, used by XeSS frame
   generation). Do not add it: with it there, Grand Theft Auto V Enhanced and Red Dead Redemption 2 do not
@@ -155,6 +155,6 @@ by wilsjo2 (v0.7.7, September 2026), which builds on [OptiScaler](https://github
 [RenoDX](https://github.com/clshortfuse/renodx). License unchanged: GPL-3.0. [Full credits](docs/CREDITS.md) ·
 [License](LICENSE)
 
-Developed with my mAIn man [Claude](https://claude.com/claude-code) (Anthropic).
+Developed along with my mAIn man [Claude](https://claude.com/claude-code) (Anthropic).
 
-If this is useful to you, you can support the work on [Ko-fi](https://ko-fi.com/cantinkerousfinagler).
+If this is useful to you, you can support the work and further development at [Ko-fi](https://ko-fi.com/cantinkerousfinagler).
