@@ -1,7 +1,7 @@
 # CrOptiScaler
 
 An [OptiScaler](https://github.com/optiscaler/OptiScaler) fork for games played in VR with
-[R.E.A.L. VR](https://www.patreon.com/realvr). It adds **foveated DLSS:SR,RR,NR**: Higher quality preset in the middle of each eye,
+[R.E.A.L. VR](https://www.patreon.com/realvr). It adds **foveated DLSS:SR,RR,NR**: Full quality in the middle of each eye,
 a cheap pass for the rest, for a higher frame rate.
 
 Experimental, tested on one machine. Not affiliated with R.E.A.L. VR, NVIDIA or the OptiScaler team.
