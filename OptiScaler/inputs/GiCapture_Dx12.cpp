@@ -2490,17 +2490,33 @@ void HistFinish()
         std::vector<const Flip*> maps;
         std::vector<uint64_t> covered;
         bool pairToo = false, repeats = false;
+        int everyOther = 0, once = 0;
         for (const Flip& f : flips)
             if (isMap(f.first->desc) && !writtenThen(f))
             {
                 pairToo = pairToo || period2(f);
+                everyOther += period2(f) ? 1 : 0;
+                once += f.presents.size() == 1 ? 1 : 0;
                 maps.push_back(&f);
                 repeats = repeats || (f.presents.size() == 2 && f.presents[1] == f.presents[0] + 3);
                 covered.insert(covered.end(), f.presents.begin(), f.presents.end());
             }
         std::sort(covered.begin(), covered.end());
-        if (!pairToo && repeats && maps.size() == 3 && covered.size() == 4 && std::adjacent_find(covered.begin(), covered.end()) == covered.end())
+        const bool eachOnce = covered.size() == 4 && std::adjacent_find(covered.begin(), covered.end()) == covered.end();
+        if (!pairToo && repeats && maps.size() == 3 && eachOnce)
             mapRing = maps;
+        // The other three: one texture read every other Present and written in between, its other side on two that take turns (lighting quality changed to Max in a running game, the patch of
+        // 2026-11-12: the map trace reads SWSW, WS..WS.. and ..WS..WS). 4 Presents see them in 2, 1 and 1 as well, the two of the first two apart. Exactly that, or it is not the map.
+        else if (maps.size() == 3 && everyOther == 1 && once == 2 && eachOnce)
+        {
+            mapRing = maps;
+            static bool logged = false;
+            if (!logged)
+            {
+                logged = true;
+                LOG_INFO("GI capture: history test: the map is on three textures, one every other Present and two taking turns");
+            }
+        }
     }
     // The lighting's list in each Present: the one sending the R8 map to SRV, which goes nowhere else. Not "the list with the most": lists are recorded in parallel, so which saw a texture first is a race.
     // One map list a Present, or refused: the rule below must never run on the wrong list in silence.
@@ -2537,6 +2553,8 @@ void HistFinish()
     {
         if (!balanced || !isHistory(f) || std::find(done.begin(), done.end(), &f) != done.end())
             continue;
+        if (std::find(mapRing.begin(), mapRing.end(), &f) != mapRing.end())
+            continue; // a map on three is one set, made below: its every-other member has no partner of its own
         const D3D12_RESOURCE_DESC& d = f.first->desc;
         if (d.Width * 2 < renderW || d.Dimension != D3D12_RESOURCE_DIMENSION_TEXTURE2D || d.MipLevels != 1 || d.DepthOrArraySize != 1 || d.SampleDesc.Count != 1)
             continue;
@@ -4112,6 +4130,12 @@ constexpr PipeShader kPipeShaders[] = {
     { "45932 bytes", { 0x93, 0x3c, 0x29, 0x23, 0xdb, 0x83, 0xe1, 0x20, 0x17, 0xa5, 0x57, 0xac, 0x6b, 0x7d, 0x86, 0x5a }, 45932, 16280, { 117537, 1257, 1223, 1239 }, { 152495, 1847, 0, 1829 }, 0, 0, 0, true },
     { "63532 bytes", { 0xb7, 0xda, 0xc9, 0x4f, 0x76, 0xa9, 0x3b, 0xb1, 0xd0, 0x64, 0x33, 0xad, 0xcd, 0x87, 0x23, 0x9a }, 63532, 17212, { 155863, 1869, 1811, 1851 }, { 194861, 2512, 0, 2494 }, 0, 0, 0, true },
     { "67488 bytes", { 0xbf, 0xd0, 0x5b, 0x6b, 0x29, 0x8e, 0x69, 0x78, 0xc2, 0x18, 0xcb, 0x3c, 0x6d, 0x8a, 0xbc, 0xbf }, 67488, 17180, { 188078, 2546, 2486, 2530 }, { 227295, 3189, 0, 3173 }, 0, 0, 0, false },
+    // The game's patch of 2026-11-12: the same five, each a hundred bytes longer, the same lines in each (the rows above carried over line by line).
+    { "68084 bytes", { 0xb1, 0xc3, 0x9a, 0x9e, 0x8e, 0x7a, 0xc3, 0x8e, 0x93, 0x11, 0x59, 0xfa, 0x99, 0xdf, 0x1e, 0x8a }, 68084, 17336, { 191414, 2602, 2543, 2587 }, { 230631, 3245, 0, 3230 }, 215448, 81, 386, false },
+    { "49884 bytes", { 0x6e, 0xda, 0x1d, 0xdc, 0x92, 0xfe, 0x3b, 0xb0, 0x46, 0xeb, 0x8c, 0x1d, 0x88, 0x35, 0xa8, 0x6d }, 49884, 16316, { 148867, 1923, 1886, 1906 }, { 184139, 2515, 0, 2498 }, 169251, 76, 341, false },
+    { "46024 bytes", { 0x62, 0x22, 0x90, 0x88, 0x34, 0xe1, 0x19, 0xaf, 0xfa, 0x4d, 0xd6, 0xaf, 0xa8, 0x1d, 0x6b, 0x34 }, 46024, 16328, { 117399, 1256, 1222, 1238 }, { 152357, 1846, 0, 1828 }, 0, 0, 0, true },
+    { "63636 bytes", { 0x5f, 0x41, 0xe8, 0x7f, 0x74, 0x3c, 0x3b, 0x8c, 0xab, 0x53, 0x41, 0x8f, 0x51, 0xf2, 0xbb, 0xf8 }, 63636, 17276, { 155685, 1868, 1810, 1850 }, { 194683, 2511, 0, 2493 }, 0, 0, 0, true },
+    { "67604 bytes", { 0x39, 0xc5, 0xec, 0xe4, 0xa9, 0xa8, 0x94, 0xc4, 0xce, 0xa4, 0xf3, 0x3c, 0x97, 0x26, 0x2b, 0x5e }, 67604, 17252, { 187946, 2545, 2485, 2529 }, { 227163, 3188, 0, 3172 }, 0, 0, 0, false },
 };
 constexpr int kPipeLevels = 4; // 1 the diffuse's limit at 31, 2 at 16, 3 at 16 with the specular's too, 4 at 16 with the reflection's new frame on the whole vector
 struct PipeEntry
@@ -4470,7 +4494,9 @@ static void HistSetStep(int mode)
         g_camEffect.store(4);
     }
     LOG_INFO("GI capture: history test: present {}: now {} ({})", g_present.load(), mode, names[mode]);
-    CamBeeps(g_histAllSteps ? mode + 1 : (mode == 0 ? 1 : mode == 9 ? 2 : mode == 18 ? 7 : mode == 17 ? 6 : mode == 16 ? 8 : mode == 15 ? 5 : mode - 9));
+    // On and off are silent (the user, 2026-11-16: the menu's tick says it); the one sound left is the three low beeps of 'switched on and not found'. The steps' own count is for the list of all steps.
+    if (g_histAllSteps)
+        CamBeeps(mode + 1);
 }
 
 void GiCapture_Dx12::CycleHistoryTest()
