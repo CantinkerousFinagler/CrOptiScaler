@@ -113,6 +113,8 @@ one's cost. And if your headset already holds its refresh rate, the saving shows
 
 **Crimson Desert**
 - Per-eye lighting is for playing without Ray Reconstruction, on lighting quality Ultra or Cinematic.
+- **Per-eye lighting is currently broken on lighting quality Max** after the game's latest patch: it gives three long,
+  low beeps and stays off. We will work on a fix. Use Ultra or Cinematic for now.
 - Per-eye lighting is off at every launch. Turn it on in the menu.
 - If the picture looks split or doubled right after turning it on, untick it and tick it again.
 - **Turn it off before changing graphics settings**, then on again. Changing settings with it on can crash.
